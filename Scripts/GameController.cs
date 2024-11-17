@@ -11,9 +11,7 @@ public class GameController : MonoBehaviour
 
      [SerializeField] private TMP_Text[] optionButtonTexts; // Array of your 3 button texts
 
-     
-
-
+     public TextMeshProUGUI lastActionText;
 
     
     [HideInInspector] public RoomNavigation roomNavigation;
@@ -87,17 +85,14 @@ public class GameController : MonoBehaviour
     {
         actionLog.Add(stringToAdd + "\n");
     }
-
-    // public void setUpButtonChoice() 
-    // {
-    //     buttonChoice.DisplayButtonOptions();
-    // }
-
-    // public void buttonChoiceClicked(int choiceIndex) 
-    // {
-    //     roomNavigation.AttemptToChangeRooms(choiceIndex);
-    //     DisplayRoomText();
-    //     DisplayLoggedText();
-    // }
+public void buttonChoiceClicked(int choiceIndex) 
+{
+    roomNavigation.AttemptToChangeRooms(choiceIndex);
+    DisplayRoomText();
+    DisplayLoggedText();
+}
     
 }
+
+
+

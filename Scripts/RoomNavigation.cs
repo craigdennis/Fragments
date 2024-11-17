@@ -22,7 +22,8 @@ public class RoomNavigation : MonoBehaviour
         {
             exitDictionary.Add(currentRoom.exits[i].keyString, currentRoom.exits[i].valueRoom);
             controller.interactionDescriptionsInRoom.Add(currentRoom.exits[i].exitDescription);
-            controller.buttonChoiceDescriptionsInRoom.Add(currentRoom.exits[i].buttonChoiceText);
+
+
         }
     }
 

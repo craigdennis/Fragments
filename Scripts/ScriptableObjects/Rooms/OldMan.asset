@@ -17,4 +17,5 @@ MonoBehaviour:
   exits:
   - keyString: south
     exitDescription: you head back
+    buttonChoiceText: 
     valueRoom: {fileID: 11400000, guid: 0d9de4f78b9024516a836e8bcfe12470, type: 2}
