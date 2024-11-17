@@ -8,12 +8,18 @@ public class GameController : MonoBehaviour
 {
 
      public TextMeshProUGUI displayText;
-    public TextMeshProUGUI optionButtonText;
+
+     [SerializeField] private TMP_Text[] optionButtonTexts; // Array of your 3 button texts
+
+     
+
 
 
     
     [HideInInspector] public RoomNavigation roomNavigation;
     [HideInInspector] public List<string> interactionDescriptionsInRoom = new List<string>();
+
+    [HideInInspector] public List<string> buttonChoiceDescriptionsInRoom = new List<string>();
 
     List<string> actionLog = new List<string>();
 
@@ -44,11 +50,22 @@ public class GameController : MonoBehaviour
 
         string combinedText = roomNavigation.currentRoom.description + "\n" + joinedInteractionDescriptions;
 
-        string buttonText = roomNavigation.currentRoom.buttonChoiceText;
 
-        opButton.text = buttonText;
-        
+    // Get the minimum between number of exits and number of buttons
+    int numButtons = Mathf.Min(roomNavigation.currentRoom.exits.Length, optionButtonTexts.Length);
+    
+    // Only loop through available buttons/exits
+    for (int i = 0; i < numButtons; i++)
+    {
+        string buttonText = roomNavigation.currentRoom.exits[i].buttonChoiceText;
+        optionButtonTexts[i].text = buttonText;
+    }
 
+    // Optional: Hide unused buttons
+    for (int i = numButtons; i < optionButtonTexts.Length; i++)
+    {
+            optionButtonTexts[i].transform.parent.gameObject.SetActive(false);
+        }
 
         LogStringWithReturn(combinedText);
     }
@@ -62,7 +79,7 @@ public class GameController : MonoBehaviour
     void ClearCollectionsForNewRoom() 
     {
         interactionDescriptionsInRoom.Clear();
-       roomNavigation.ClearExits();
+       roomNavigation.ClearExitsInRoom();
     }
 
 
