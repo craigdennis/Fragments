@@ -8,6 +8,10 @@ public class GameController : MonoBehaviour
 {
 
      public TextMeshProUGUI displayText;
+    public TextMeshProUGUI optionButtonText;
+
+
+    
     [HideInInspector] public RoomNavigation roomNavigation;
     [HideInInspector] public List<string> interactionDescriptionsInRoom = new List<string>();
 
@@ -40,8 +44,10 @@ public class GameController : MonoBehaviour
 
         string combinedText = roomNavigation.currentRoom.description + "\n" + joinedInteractionDescriptions;
 
-        // string buttonChoiceText = buttonChoiceText;
+        string buttonText = roomNavigation.currentRoom.buttonChoiceText;
 
+        opButton.text = buttonText;
+        
 
 
         LogStringWithReturn(combinedText);
