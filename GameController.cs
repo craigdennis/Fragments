@@ -31,10 +31,13 @@ public class GameController : MonoBehaviour
     }
 
     public void DisplayLoggedText() 
+{
+    // Instead of showing all logged text, just show the most recent entry
+    if (actionLog.Count > 0)
     {
-        string logAsText = string.Join("\n", actionLog.ToArray());
-        displayText.text = logAsText;
+        displayText.text = actionLog[actionLog.Count - 1];
     }
+}
 
     public void DisplayRoomText() 
     {
@@ -74,22 +77,35 @@ public class GameController : MonoBehaviour
 
     void ClearCollectionsForNewRoom() 
     {
-        interactionDescriptionsInRoom.Clear();
-        roomNavigation.ClearExitsInRoom();
+    interactionDescriptionsInRoom.Clear();
+       roomNavigation.ClearExitsInRoom();
     }
 
 
     public void LogStringWithReturn(string stringToAdd) 
-    {
-        actionLog.Add(stringToAdd + "\n");
-    }
+{
+    // Clear the previous log entries and only keep the current one
+    actionLog.Clear();
+    actionLog.Add(stringToAdd + "\n");
+}
+// public void buttonChoiceClicked(int choiceIndex) 
+// {
+//     roomNavigation.AttemptToChangeRooms(choiceIndex);
+//     lastActionText.text = "";
+//     DisplayRoomText();
+//     DisplayLoggedText();
+//     lastActionText.text = displayText.text;
+// }
+
 public void buttonChoiceClicked(int choiceIndex) 
 {
+    // Store the current room description before changing rooms
+    lastActionText.text = displayText.text;
+    
+    // Change rooms and update display
     roomNavigation.AttemptToChangeRooms(choiceIndex);
-    lastActionText.text = "";
     DisplayRoomText();
     DisplayLoggedText();
-    lastActionText.text = displayText.text;
 }
     
 }
