@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine.UI;
 using TMPro;
+using UnityEditor;
 
 public class GameController : MonoBehaviour
 {
@@ -29,6 +30,21 @@ public class GameController : MonoBehaviour
 
     void Start()
     {
+        // If returning from combat, move to the next room
+        if (PlayerPrefs.HasKey("NextRoomGUID"))
+        {
+            string roomGUID = PlayerPrefs.GetString("NextRoomGUID");
+            string roomPath = AssetDatabase.GUIDToAssetPath(roomGUID);
+            Room nextRoom = AssetDatabase.LoadAssetAtPath<Room>(roomPath);
+            
+            if (nextRoom != null)
+            {
+                roomNavigation.currentRoom = nextRoom;
+                PlayerPrefs.DeleteKey("NextRoomGUID");
+            }
+        }
+
+        // Continue with normal room setup
         DisplayRoomText();
         DisplayLoggedText();
     }
@@ -39,15 +55,22 @@ public class GameController : MonoBehaviour
         displayText.text = logAsText;
     }
 
-    public void DisplayRoomText() 
+public void DisplayRoomText() 
+{
+    // Skip execution if a combat transition is pending
+    if (PlayerPrefs.HasKey("NextRoomGUID"))
     {
-        ClearCollectionsForNewRoom();
-        UnpackRoom();
+        Debug.Log("Skipping DisplayRoomText due to pending combat transition.");
+        return;
+    }
 
-        string joinedInteractionDescriptions = string.Join("\n", interactionDescriptionsInRoom.ToArray());
+    Debug.Log($"DisplayRoomText called. CurrentRoom: {roomNavigation.currentRoom.name}");
 
-        string combinedText = roomNavigation.currentRoom.description + "\n" + joinedInteractionDescriptions;
+    ClearCollectionsForNewRoom();
+    UnpackRoom();
 
+    string joinedInteractionDescriptions = string.Join("\n", interactionDescriptionsInRoom.ToArray());
+    string combinedText = roomNavigation.currentRoom.description + "\n" + joinedInteractionDescriptions;
 
     // Get the minimum between number of exits and number of buttons
     int numButtons = Mathf.Min(roomNavigation.currentRoom.exits.Length, optionButtonTexts.Length);
@@ -62,11 +85,15 @@ public class GameController : MonoBehaviour
     // Optional: Hide unused buttons
     for (int i = numButtons; i < optionButtonTexts.Length; i++)
     {
-            optionButtonTexts[i].transform.parent.gameObject.SetActive(false);
-        }
-
-        LogStringWithReturn(combinedText);
+        optionButtonTexts[i].transform.parent.gameObject.SetActive(false);
     }
+
+    Debug.Log($"Combined text for display: {combinedText}");
+
+    LogStringWithReturn(combinedText);
+}
+
+   
 
     void UnpackRoom() 
     {
@@ -81,10 +108,12 @@ public class GameController : MonoBehaviour
     }
 
 
-    public void LogStringWithReturn(string stringToAdd) 
-    {
-        actionLog.Add(stringToAdd + "\n");
-    }
+ public void LogStringWithReturn(string stringToAdd)
+{
+    Debug.Log($"Adding to log: {stringToAdd}");
+    actionLog.Add(stringToAdd + "\n");
+}
+
 public void buttonChoiceClicked(int choiceIndex) 
 {
     roomNavigation.AttemptToChangeRooms(choiceIndex);

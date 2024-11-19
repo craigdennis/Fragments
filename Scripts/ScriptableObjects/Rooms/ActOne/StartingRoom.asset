@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fc86985495674df489ee7bde785c85f, type: 3}
+  m_Name: StartingRoom
+  m_EditorClassIdentifier: 
+  description: "Darkness and cold greet your senses as you stir. The rattle of iron
+    wheels on uneven ground jolts you awake. Your body aches as if you\u2019ve been
+    traveling for days, though the memory of the journey eludes you. Groggily, you
+    open your eyes to a dim, grayish light filtering through the slats of a prison
+    wagon. The scent of damp wood and rusted iron fills your nose."
+  roomName: starting room
+  exits:
+  - keyString: look at yourself
+    exitDescription: You look at yourself
+    buttonChoiceText: look at yourself
+    valueRoom: {fileID: 11400000, guid: 89aa7344f46a34efaa2a92acd321aa7b, type: 2}

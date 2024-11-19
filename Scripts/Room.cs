@@ -9,6 +9,8 @@ public class Room : ScriptableObject
 
     public string roomName;
     public Exit[] exits;
+    public bool hasCombat;
+    public CombatEntityType enemyType;
 
 
 

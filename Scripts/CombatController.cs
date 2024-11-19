@@ -3,101 +3,148 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class CombatController : MonoBehaviour
 {
-    [SerializeField] private CombatEntity playerData;    // Reference to the ScriptableObject
-    [SerializeField] private CombatEntity guardData; 
-    [SerializeField] private Button attackButton; 
-    [SerializeField] private TextMeshProUGUI guardHealthText; 
-    [SerializeField] private TextMeshProUGUI playerHealthText; 
-    [SerializeField] private TextMeshProUGUI combatResultText;  // Add this for showing the result
-    
-    private CombatInstance player;    // Runtime instance
-    private CombatInstance guard;     // Runtime instance
+    [SerializeField] private CombatEntity playerData;
+    [SerializeField] private CombatEntity guardData;
+    [SerializeField] private Button attackButton;
+    [SerializeField] private TextMeshProUGUI enemyHealthText;
+    [SerializeField] private TextMeshProUGUI playerHealthText;
+    [SerializeField] private TextMeshProUGUI combatResultText;
+
+    private CombatInstance player;
+    private CombatInstance enemy;
     private bool isCombatOver = false;
+    private float playerAttackTimer = 0f;
+    private float enemyAttackTimer = 0f;
 
     void Start()
     {
-        // Create runtime instances from the ScriptableObject data
-        player = new CombatInstance(playerData);
-        guard = new CombatInstance(guardData);
-        
-        player.Initialize();
-        guard.Initialize();
+        Debug.Log("Combat Controller Starting...");
 
-        // Add button listener
+        // Check if ScriptableObjects are assigned
+        if (playerData == null)
+        {
+            Debug.LogError("PlayerData ScriptableObject is not assigned!");
+            return;
+        }
+
+        if (guardData == null)
+        {
+            Debug.LogError("GuardData ScriptableObject is not assigned!");
+            return;
+        }
+
+        // Create player instance
+        player = new CombatInstance(playerData);
+        player.Initialize();
+        Debug.Log($"Player initialized with health: {player.currentHealth}/{player.maxHealth}");
+
+        // Get enemy type from PlayerPrefs
+        CombatEntityType enemyType = (CombatEntityType)PlayerPrefs.GetInt("EnemyType", 0);
+        Debug.Log($"Loading enemy type: {enemyType}");
+
+        // Create enemy instance
+        CombatEntity enemyData = GetEnemyData(enemyType);
+        if (enemyData == null)
+        {
+            Debug.LogError($"No enemy data found for type: {enemyType}");
+            return;
+        }
+
+        enemy = new CombatInstance(enemyData);
+        enemy.Initialize();
+        Debug.Log($"Enemy initialized with health: {enemy.currentHealth}/{enemy.maxHealth}");
+
+        // Set up UI
+        if (attackButton == null)
+        {
+            Debug.LogError("Attack Button not assigned in inspector!");
+            return;
+        }
+
+        // Clear and add listener
+        attackButton.onClick.RemoveAllListeners();
         attackButton.onClick.AddListener(OnAttackButtonPressed);
-        UpdateHealthDisplay();  // Initial display
+        Debug.Log("Attack button listener added");
+
+        UpdateHealthDisplay();
     }
 
-    // New method for button click
-    public void OnAttackButtonPressed()
+    private CombatEntity GetEnemyData(CombatEntityType type)
     {
-    
-
-        if (player.attackTimer <= 0f)
+        switch(type)
         {
-            AttackGuard();
-            player.attackTimer = player.equippedWeapon.attackSpeed;
+            case CombatEntityType.Guard:
+                return guardData;
+            // Add other cases as needed
+            default:
+                Debug.LogError($"Unknown enemy type: {type}");
+                return guardData; // Default to guard if unknown
         }
-    
     }
 
     void Update()
     {
-        // Update timers
-        if (player.attackTimer > 0f)
-            player.attackTimer -= Time.deltaTime;
-            
-        HandleGuardAttack();
+        if (isCombatOver) return;
+
+        // Update attack timers
+        if (playerAttackTimer > 0)
+        {
+            playerAttackTimer -= Time.deltaTime;
+            attackButton.interactable = false;  // Disable button during cooldown
+        }
+        else
+        {
+            attackButton.interactable = true;   // Enable button when ready
+        }
+        
+        if (enemyAttackTimer > 0)
+        {
+            enemyAttackTimer -= Time.deltaTime;
+        }
+        else if (!isCombatOver)
+        {
+            EnemyAttack();
+        }
     }
 
-    void HandleGuardAttack()
+    public void OnAttackButtonPressed()
     {
-        if (guard.attackTimer <= 0f)
+        if (isCombatOver || playerAttackTimer > 0)
         {
-            AttackPlayer();
-            guard.attackTimer = guard.attackCooldown;
-        }
-
-        if (guard.attackTimer > 0f)
-            guard.attackTimer -= Time.deltaTime;
-    }
-
-    void AttackGuard()
-    {
-        if (isCombatOver) return;  // Don't allow attacks if combat is over
-        
-        if (player == null)
-        {
-            Debug.LogError("Player is null!");
+            Debug.Log($"Can't attack: {(isCombatOver ? "Combat over" : $"Cooldown: {playerAttackTimer:F1}s")}");
             return;
         }
-        
-        if (player.equippedWeapon == null)
+
+        if (player == null || enemy == null)
         {
-            Debug.LogError("Player weapon is null!");
+            Debug.LogError($"Player is null: {player == null}, Enemy is null: {enemy == null}");
             return;
         }
-        
-        bool isDefeated = guard.TakeDamage(player.equippedWeapon.weaponDamage);
-        Debug.Log($"{player.entityName} attacked {guard.entityName} for {player.equippedWeapon.weaponDamage} damage!");
+
+        // Perform attack and set cooldown
+        bool isDefeated = enemy.TakeDamage(player.equippedWeapon.weaponDamage);
+        playerAttackTimer = player.attackCooldown;
+        Debug.Log($"{player.entityName} attacked {enemy.entityName} for {player.equippedWeapon.weaponDamage} damage!");
         
         UpdateHealthDisplay();
 
         if (isDefeated)
         {
-            EndCombat($"{guard.entityName} has been defeated!");
+            EndCombat($"{enemy.entityName} has been defeated!");
         }
     }
 
-    void AttackPlayer()
+    private void EnemyAttack()
     {
-        if (isCombatOver) return;  // Don't allow attacks if combat is over
-        
-        bool isDefeated = player.TakeDamage(guard.damage);
-        Debug.Log($"{guard.entityName} attacked {player.entityName} for {guard.damage} damage.");
+        if (isCombatOver) return;
+
+        bool isDefeated = player.TakeDamage(enemy.damage);
+        enemyAttackTimer = enemy.attackCooldown;  // Reset enemy cooldown
+        Debug.Log($"{enemy.entityName} attacked {player.entityName} for {enemy.damage} damage!");
         
         UpdateHealthDisplay();
 
@@ -107,10 +154,25 @@ public class CombatController : MonoBehaviour
         }
     }
 
-    void EndCombat(string result)
+    void UpdateHealthDisplay()
+    {
+        if (enemyHealthText != null && enemy != null)
+        {
+            string cooldownInfo = playerAttackTimer > 0 ? $" (Attack ready in: {playerAttackTimer:F1}s)" : " (Ready!)";
+            enemyHealthText.text = $"{enemy.entityName} Health: {Mathf.Max(0, enemy.currentHealth)}/{enemy.maxHealth}{cooldownInfo}";
+        }
+        
+        if (playerHealthText != null && player != null)
+        {
+            string cooldownInfo = enemyAttackTimer > 0 ? $" (Enemy attacks in: {enemyAttackTimer:F1}s)" : " (Attacking!)";
+            playerHealthText.text = $"Player Health: {Mathf.Max(0, player.currentHealth)}/{player.maxHealth}{cooldownInfo}";
+        }
+    }
+
+    private void EndCombat(string result)
     {
         isCombatOver = true;
-        attackButton.interactable = false;  // Disable attack button
+        attackButton.interactable = false;
         
         if (combatResultText != null)
         {
@@ -118,24 +180,19 @@ public class CombatController : MonoBehaviour
             combatResultText.gameObject.SetActive(true);
         }
         
-        Debug.Log("Combat is over: " + result);
-        
-        // You might want to add these depending on your game:
-        // StartCoroutine(ReturnToGameAfterDelay());
-        // ShowVictoryOrDefeatScreen();
-        // etc.
+        StartCoroutine(ProceedToNextRoom());
     }
 
-    void UpdateHealthDisplay()
+    private IEnumerator ProceedToNextRoom()
     {
-        if (guardHealthText != null && guard != null)
-        {
-            guardHealthText.text = $"Guard Health: {Mathf.Max(0, guard.currentHealth)}/{guard.maxHealth}";
-        }
-        
-        if (playerHealthText != null && player != null)
-        {
-            playerHealthText.text = $"Player Health: {Mathf.Max(0, player.currentHealth)}/{player.maxHealth}";
-        }
+        yield return new WaitForSeconds(2f);
+        SceneManager.LoadScene("MainGameScene");
+    }
+
+    private IEnumerator HandlePlayerDefeat()
+    {
+        yield return new WaitForSeconds(2f);
+        // You can customize what happens on defeat
+        SceneManager.LoadScene("MainGameScene");  // For now, just return to main game
     }
 }

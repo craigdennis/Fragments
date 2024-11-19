@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fc86985495674df489ee7bde785c85f, type: 3}
+  m_Name: TryAndRemeber
+  m_EditorClassIdentifier: 
+  description: "You try to piece together how you ended up here, but your mind is
+    a blank slate. You can\u2019t even recall your own name, let alone what you might
+    have done to deserve this fate. Fragments of sound, light, and motion flicker
+    in your memory\u2014like echoes of a dream\u2014but they refuse to take shape.
+    Your pulse quickens as panic threatens to rise, but you shove it down. Questions
+    will come later, you tell yourself"
+  roomName: Try and Remember
+  exits: []
