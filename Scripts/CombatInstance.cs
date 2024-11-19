@@ -1,7 +1,4 @@
 using UnityEngine;
-using System.Collections.Generic;
-using System.Collections;
-using UnityEngine.UI;
 
 
 
@@ -9,15 +6,15 @@ public class CombatInstance
 {
     private CombatEntity data;
     private static readonly Weapon defaultWeapon = CreateDefaultWeapon();
+    public bool IsPlayer { get; private set; }
     
     // Properties to access the data
     public string entityName => data.entityName;
     public float maxHealth => data.maxHealth;
     public float currentHealth { get; private set; }
-    public Weapon equippedWeapon => data.equippedWeapon ?? defaultWeapon;  // Use default if no weapon
+    public Weapon equippedWeapon => data.equippedWeapon ?? defaultWeapon;
     public float damage => data.damage;
     public float attackCooldown => data.attackCooldown;
-    public float attackTimer { get; set; }
 
     private static Weapon CreateDefaultWeapon()
     {
@@ -28,21 +25,30 @@ public class CombatInstance
         return weapon;
     }
 
-    public CombatInstance(CombatEntity entityData)
+    public CombatInstance(CombatEntity entityData, bool isPlayer = false)
     {
         data = entityData;
+        IsPlayer = isPlayer;
     }
 
     public void Initialize()
     {
         currentHealth = maxHealth;
-        attackTimer = 0f;
     }
 
     public bool TakeDamage(float damageAmount)
     {
-        currentHealth -= damageAmount;
-        Debug.Log($"{entityName} health: {currentHealth}/{maxHealth}");
-        return currentHealth <= 0;  // Returns true if entity is defeated
+        currentHealth = Mathf.Max(0, currentHealth - damageAmount);
+        
+        if (IsPlayer)
+        {
+            GameEvents.RaisePlayerHealthChanged(currentHealth, maxHealth);
+        }
+        else
+        {
+            GameEvents.RaiseEnemyHealthChanged(currentHealth, maxHealth);
+        }
+        
+        return currentHealth <= 0;
     }
 }

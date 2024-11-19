@@ -1,84 +1,94 @@
-using UnityEngine;
 using System.Collections.Generic;
-using System.Collections;
-using UnityEngine.SceneManagement;
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
+using UnityEngine;
 
 public class RoomNavigation : MonoBehaviour
 {
+    [SerializeField] private Room startingRoom;
+    public Room CurrentRoom { get; private set; }
+    private Dictionary<string, Room> exitDictionary = new Dictionary<string, Room>();
+    private List<string> interactionDescriptions = new List<string>();
 
-    public Room currentRoom;
-    private Room nextRoom;
-    public Dictionary<string, Room> exitDictionary = new Dictionary<string, Room>();
+    public Room StartingRoom => startingRoom;
 
-    private GameController controller;
-
-
-    void Awake()
+    private void Start()
     {
-        controller = GetComponent<GameController>();
-    }
-
-    public void UnpackExitsInRoom()
-    {
-        for (int i = 0; i < currentRoom.exits.Length; i++)
+        if (CurrentRoom == null)
         {
-            exitDictionary.Add(currentRoom.exits[i].keyString, currentRoom.exits[i].valueRoom);
-            controller.interactionDescriptionsInRoom.Add(currentRoom.exits[i].exitDescription);
-
-
+            SetRoom(startingRoom);
         }
     }
-public void AttemptToChangeRooms(int exitIndex)
-{
-    if (exitIndex < currentRoom.exits.Length)
+
+    public void SetRoom(Room room)
     {
-        nextRoom = currentRoom.exits[exitIndex].valueRoom;
+        CurrentRoom = room;
+        GameEvents.RaiseRoomChanged(room);
+    }
+
+    public void PrepareRoom()
+    {
+        ClearCurrentRoomData();
+        UnpackExits();
+    }
+
+    public void ProcessChoice(int exitIndex)
+    {
+        if (exitIndex >= CurrentRoom.exits.Length) 
+        {
+            Debug.LogError($"Invalid exit index: {exitIndex}");
+            return;
+        }
+
+        var targetRoom = CurrentRoom.exits[exitIndex].valueRoom;
         
-        Debug.Log($"Attempting to change to: {nextRoom.name}. HasCombat: {nextRoom.hasCombat}");
-        
-        if (nextRoom.hasCombat)
+        if (targetRoom == null)
         {
-            Debug.Log("Starting combat transition...");
-            StartCombat(nextRoom.enemyType);
-            return; // Prevent further execution
+            Debug.LogError("Target room is null!");
+            return;
         }
 
-        CompleteRoomChange();
-
-        GameController controller = GetComponent<GameController>();
-        if (controller != null)
+        if (targetRoom.hasCombat)
         {
-            controller.DisplayRoomText();
+            Debug.Log($"Transitioning to combat with enemy type: {targetRoom.enemyType}");
+            SceneService.Instance.TransitionToCombat(new SceneTransitionData
+            {
+                NextRoom = targetRoom,
+                EnemyType = targetRoom.enemyType,
+                RoomGUID = targetRoom.name
+            });
+        }
+        else
+        {
+            SetRoom(targetRoom);
         }
     }
-}
 
-
-
-private void StartCombat(CombatEntityType enemyType)
-{
-    Debug.Log($"Initiating combat with enemy type: {enemyType}");
-    PlayerPrefs.SetString("NextRoomGUID", AssetDatabase.AssetPathToGUID(AssetDatabase.GetAssetPath(nextRoom)));
-    PlayerPrefs.SetInt("EnemyType", (int)enemyType);
-    SceneManager.LoadScene("CombatScene");
-}
-
-
-    public void CompleteRoomChange()
+    public string GetCurrentRoomDescription()
     {
-        if (nextRoom != null)
+        return CurrentRoom.description;
+    }
+
+    public List<string> GetInteractionDescriptions()
+    {
+        return interactionDescriptions;
+    }
+
+    public Exit[] GetExitChoices()
+    {
+        return CurrentRoom.exits;
+    }
+
+    private void UnpackExits()
+    {
+        foreach (var exit in CurrentRoom.exits)
         {
-            currentRoom = nextRoom;
-            nextRoom = null;
+            exitDictionary[exit.keyString] = exit.valueRoom;
+            interactionDescriptions.Add(exit.exitDescription);
         }
     }
 
-    public void ClearExitsInRoom() 
+    private void ClearCurrentRoomData()
     {
         exitDictionary.Clear();
+        interactionDescriptions.Clear();
     }
-
 }

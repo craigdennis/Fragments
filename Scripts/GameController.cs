@@ -1,127 +1,79 @@
-using UnityEngine;
 using System.Collections.Generic;
-using System.Collections;
-using UnityEngine.UI;
-using TMPro;
-using UnityEditor;
+using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-
-     public TextMeshProUGUI displayText;
-
-     [SerializeField] private TMP_Text[] optionButtonTexts; // Array of your 3 button texts
-
-     public TextMeshProUGUI lastActionText;
-
+    [SerializeField] private UIManager uiManager;
+    [SerializeField] private RoomNavigation roomNavigation;
     
-    [HideInInspector] public RoomNavigation roomNavigation;
-    [HideInInspector] public List<string> interactionDescriptionsInRoom = new List<string>();
+    private List<string> actionLog = new List<string>();
 
-    [HideInInspector] public List<string> buttonChoiceDescriptionsInRoom = new List<string>();
-
-    List<string> actionLog = new List<string>();
-
-
-    void Awake()
+    private void Awake()
     {
-        roomNavigation = GetComponent<RoomNavigation>();
+        if (uiManager == null) uiManager = GetComponent<UIManager>();
+        if (roomNavigation == null) roomNavigation = GetComponent<RoomNavigation>();
+        
+        // Subscribe to events
+        GameEvents.OnLogMessage += AddToActionLog;
+        GameEvents.OnRoomChanged += HandleRoomChanged;
     }
 
-    void Start()
+    private void Start()
     {
-        // If returning from combat, move to the next room
-        if (PlayerPrefs.HasKey("NextRoomGUID"))
+        if (SceneService.Instance == null)
         {
-            string roomGUID = PlayerPrefs.GetString("NextRoomGUID");
-            string roomPath = AssetDatabase.GUIDToAssetPath(roomGUID);
-            Room nextRoom = AssetDatabase.LoadAssetAtPath<Room>(roomPath);
-            
-            if (nextRoom != null)
-            {
-                roomNavigation.currentRoom = nextRoom;
-                PlayerPrefs.DeleteKey("NextRoomGUID");
-            }
+            Debug.LogError("SceneService not found in scene! Please add SceneService GameObject.");
+            return;
         }
 
-        // Continue with normal room setup
-        DisplayRoomText();
-        DisplayLoggedText();
+        var transitionData = SceneService.Instance.GetTransitionData();
+        if (transitionData != null)
+        {
+            roomNavigation.SetRoom(transitionData.NextRoom);
+            SceneService.Instance.ClearTransitionData();
+        }
+        else
+        {
+            roomNavigation.SetRoom(roomNavigation.StartingRoom);
+        }
+        
+        DisplayCurrentRoom();
     }
 
-    public void DisplayLoggedText() 
+    private void OnDestroy()
     {
-        string logAsText = string.Join("\n", actionLog.ToArray());
-        displayText.text = logAsText;
+        GameEvents.OnLogMessage -= AddToActionLog;
+        GameEvents.OnRoomChanged -= HandleRoomChanged;
     }
 
-public void DisplayRoomText() 
-{
-    // Skip execution if a combat transition is pending
-    if (PlayerPrefs.HasKey("NextRoomGUID"))
+    private void AddToActionLog(string message)
     {
-        Debug.Log("Skipping DisplayRoomText due to pending combat transition.");
-        return;
+        actionLog.Add(message + "\n");
+        uiManager.UpdateLogDisplay(actionLog);
     }
 
-    Debug.Log($"DisplayRoomText called. CurrentRoom: {roomNavigation.currentRoom.name}");
-
-    ClearCollectionsForNewRoom();
-    UnpackRoom();
-
-    string joinedInteractionDescriptions = string.Join("\n", interactionDescriptionsInRoom.ToArray());
-    string combinedText = roomNavigation.currentRoom.description + "\n" + joinedInteractionDescriptions;
-
-    // Get the minimum between number of exits and number of buttons
-    int numButtons = Mathf.Min(roomNavigation.currentRoom.exits.Length, optionButtonTexts.Length);
-    
-    // Only loop through available buttons/exits
-    for (int i = 0; i < numButtons; i++)
+    private void HandleRoomChanged(Room newRoom)
     {
-        string buttonText = roomNavigation.currentRoom.exits[i].buttonChoiceText;
-        optionButtonTexts[i].text = buttonText;
+        DisplayCurrentRoom();
     }
 
-    // Optional: Hide unused buttons
-    for (int i = numButtons; i < optionButtonTexts.Length; i++)
+    private void DisplayCurrentRoom()
     {
-        optionButtonTexts[i].transform.parent.gameObject.SetActive(false);
+        if (SceneService.Instance.IsTransitionPending) return;
+
+        roomNavigation.PrepareRoom();
+        string roomDescription = roomNavigation.CurrentRoom.description;
+        GameEvents.RaiseLogMessage(roomDescription);
+        
+        uiManager.UpdateRoomDisplay(
+            roomNavigation.CurrentRoom,
+            roomNavigation.GetInteractionDescriptions(),
+            roomNavigation.CurrentRoom.exits
+        );
     }
 
-    Debug.Log($"Combined text for display: {combinedText}");
-
-    LogStringWithReturn(combinedText);
+    public void OnChoiceSelected(int choiceIndex)
+    {
+        roomNavigation.ProcessChoice(choiceIndex);
+    }
 }
-
-   
-
-    void UnpackRoom() 
-    {
-        roomNavigation.UnpackExitsInRoom();
-
-    }
-
-    void ClearCollectionsForNewRoom() 
-    {
-        interactionDescriptionsInRoom.Clear();
-       roomNavigation.ClearExitsInRoom();
-    }
-
-
- public void LogStringWithReturn(string stringToAdd)
-{
-    Debug.Log($"Adding to log: {stringToAdd}");
-    actionLog.Add(stringToAdd + "\n");
-}
-
-public void buttonChoiceClicked(int choiceIndex) 
-{
-    roomNavigation.AttemptToChangeRooms(choiceIndex);
-    DisplayRoomText();
-    DisplayLoggedText();
-}
-    
-}
-
-
-
