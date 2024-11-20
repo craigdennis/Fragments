@@ -79,8 +79,14 @@ public class RoomNavigation : MonoBehaviour
 
     private void UnpackExits()
     {
+        // Guard against null exits
+        if (CurrentRoom == null || CurrentRoom.exits == null) return;
+        
         foreach (var exit in CurrentRoom.exits)
         {
+            // Guard against invalid exits
+            if (string.IsNullOrEmpty(exit.keyString) || exit.valueRoom == null) continue;
+            
             exitDictionary[exit.keyString] = exit.valueRoom;
             interactionDescriptions.Add(exit.exitDescription);
         }

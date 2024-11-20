@@ -11,18 +11,19 @@ public class ButtonChoice : MonoBehaviour
     public TextMeshProUGUI buttonOptionTwo;
     public TextMeshProUGUI buttonOptionThree;
 
-    private GameController controller;
+    private RoomNavigation roomNavigation;
 
     void Awake()
     {
-        controller = GetComponent<GameController>();
+        roomNavigation = GetComponent<RoomNavigation>();
     }
 
     void DisplayButtonOptions() 
     {
-        buttonOptionOne.text = controller.interactionDescriptionsInRoom[0];
-        buttonOptionTwo.text = controller.interactionDescriptionsInRoom[1];
-        buttonOptionThree.text = controller.interactionDescriptionsInRoom[2];
+        var descriptions = roomNavigation.GetInteractionDescriptions();
+        if (descriptions.Count > 0) buttonOptionOne.text = descriptions[0];
+        if (descriptions.Count > 1) buttonOptionTwo.text = descriptions[1];
+        if (descriptions.Count > 2) buttonOptionThree.text = descriptions[2];
     }
 
     void HideAllButtons() 

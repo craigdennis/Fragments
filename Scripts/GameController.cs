@@ -74,6 +74,23 @@ public class GameController : MonoBehaviour
 
     public void OnChoiceSelected(int choiceIndex)
     {
+        var currentRoom = roomNavigation.CurrentRoom;
+        
+        // Check if we're in a multi-paragraph room and not on the last paragraph
+        if (currentRoom.HasDetailedDescription)
+        {
+            var paragraphs = currentRoom.detailedDescription.paragraphs;
+            int currentIndex = uiManager.CurrentParagraphIndex;
+            
+            if (currentIndex < paragraphs.Length - 1)
+            {
+                // Show next paragraph
+                uiManager.ShowNextParagraph(currentRoom);
+                return;
+            }
+        }
+
+        // If we're here, it's a regular exit choice
         roomNavigation.ProcessChoice(choiceIndex);
     }
 }

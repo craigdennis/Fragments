@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fc86985495674df489ee7bde785c85f, type: 3}
+  m_Name: TalkToOldMan
+  m_EditorClassIdentifier: 
+  description: As the wagon lurches again, you take a deep breath, trying to steady
+    your thoughts. You need answers. The old man sitting across from you watches
+    quietly, his sharp eyes flickering with a knowing light. For a moment, he smirks,
+    almost imperceptibly, before leaning his head back against the bars.
+  roomName: TalkToOldMan
+  exits:
+  - keyString: WhoAreYou
+    exitDescription: Who Are You
+    buttonChoiceText: Who Are You
+    valueRoom: {fileID: 11400000, guid: b6777d99b082447109d7ca34381eed3d, type: 2}
+  detailedDescription:
+    paragraphs: []
+  hasCombat: 0
+  enemyType: 0

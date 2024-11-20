@@ -17,7 +17,7 @@ public class GameSceneManager : MonoBehaviour
         Debug.Log($"Restoring last room: {lastRoom?.name}");
         if (lastRoom != null)
         {
-            GetComponent<RoomNavigation>().currentRoom = lastRoom;
+            GetComponent<RoomNavigation>().SetRoom(lastRoom);
         }
 
         PlayerPrefs.DeleteKey("LastRoomGUID");
