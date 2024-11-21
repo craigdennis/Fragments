@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fc86985495674df489ee7bde785c85f, type: 3}
+  m_Name: DoYouKnowWhereWeAreGoing
+  m_EditorClassIdentifier: 
+  description: The wild woman’s lips curl into a smirk, though her eyes hold no humor.
+    “Oh, I know,” she says, her voice lilting like a mocking song. “We’re going to
+    a place where names are forgotten, where the sun barely touches, and screams
+    are swallowed by the earth.”
+  roomName: DoYouKnowWhereWeAreGoing
+  exits:
+  - keyString: FurtherQuestioning
+    exitDescription: Ask the woman, "What do you mean by that?"
+    buttonChoiceText: What do you mean by that?
+    valueRoom: {fileID: 11400001, guid: abc9876543210fedcba9876543210fedc, type: 2}
+  - keyString: ChangeSubject
+    exitDescription: Change the subject, "What else do you know about this place?"
+    buttonChoiceText: What else do you know about this place?
+    valueRoom: {fileID: 11400001, guid: def876543210fedcba9876543210fedc, type: 2}
+  detailedDescription:
+    paragraphs:
+    - paragraphText: The wild woman’s lips curl into a smirk, though her eyes hold
+        no humor. “Oh, I know,” she says, her voice lilting like a mocking song.
+        “We’re going to a place where names are forgotten, where the sun barely touches,
+        and screams are swallowed by the earth.”
+      nextButtonText: Her voice lowers as she leans in closer.
+    - paragraphText: “The mines, or maybe worse. The guards won’t say, but you can
+        feel it, can’t you? The weight of it, pulling us closer with every jolt of
+        the wagon. It’s the kind of place that eats people, grinds them into nothing.
+        Some go in and come out different. Most just don’t come out at all.”
+      nextButtonText: Her tone shifts, darker and more ominous.
+    - paragraphText: “But it’s not just the mines. No, there’s something else out
+        there, waiting. A hunger, old and patient. It doesn’t care about the chains
+        or the guards. It just takes.”
+      nextButtonText: She pulls back, her smirk sharper now.
+    - paragraphText: “So, do I know where we’re going? Sure. But the real question
+        is—what’s waiting for us when we get there?”
+      nextButtonText: 
+  hasCombat: 0
+  enemyType: 0
