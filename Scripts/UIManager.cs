@@ -51,7 +51,7 @@ public class UIManager : MonoBehaviour
             displayText.text = room.description;
         }
 
-        // Show exit buttons (only for regular description or last paragraph)
+        // Show exit buttons
         UpdateExitButtons(exits);
     }
 
@@ -69,11 +69,25 @@ public class UIManager : MonoBehaviour
         choiceButtons[0].interactable = true;
     }
 
+    private void ShowPickupButton(string buttonText)
+    {
+        // Deactivate all buttons first
+        for (int i = 0; i < buttonContainers.Length; i++)
+        {
+            buttonContainers[i].SetActive(false);
+        }
+
+        // Show only the pickup button
+        buttonContainers[0].SetActive(true);
+        optionButtonTexts[0].text = buttonText;
+        choiceButtons[0].interactable = true;
+    }
+
     private void UpdateExitButtons(Exit[] exits)
     {
-        // Existing exit button logic
         int numButtons = Mathf.Min(exits.Length, optionButtonTexts.Length);
         
+        // First deactivate all buttons
         for (int i = 0; i < buttonContainers.Length; i++)
         {
             buttonContainers[i].SetActive(false);
@@ -81,9 +95,27 @@ public class UIManager : MonoBehaviour
 
         for (int i = 0; i < numButtons; i++)
         {
-            buttonContainers[i].SetActive(true);
-            optionButtonTexts[i].text = exits[i].buttonChoiceText;
-            choiceButtons[i].interactable = true;
+            var exit = exits[i];
+            
+            // Skip if this exit has no valid interactions
+            // (no item to pickup AND no room to go to)
+            if (exit.itemToPickup == null && exit.valueRoom == null) continue;
+            
+            // Only show the button if there's either:
+            // 1. A room to go to OR
+            // 2. An item that hasn't been picked up yet
+            if (exit.valueRoom != null || exit.itemToPickup != null)
+            {
+                buttonContainers[i].SetActive(true);
+                
+                // Use pickup text if there's an item, otherwise use normal button text
+                string buttonText = exit.itemToPickup != null ? 
+                    exit.pickupButtonText : 
+                    exit.buttonChoiceText;
+                    
+                optionButtonTexts[i].text = buttonText;
+                choiceButtons[i].interactable = true;
+            }
         }
     }
 

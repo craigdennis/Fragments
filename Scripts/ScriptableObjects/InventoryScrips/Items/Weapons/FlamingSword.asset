@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb4582a615d764d2a8eab3774d66e001, type: 3}
+  m_Name: FlamingSword
+  m_EditorClassIdentifier: 
+  itemName: Freezing Sword
+  description: Sword infused with snow
+  flavorText: Sword infused with snow
+  icon: {fileID: 0}
+  isEquipped: 0
+  goldValue: 100
+  isConsumable: 0
+  weight: 0
+  isStackable: 0
+  maxStackSize: 1
+  currentStackSize: 1
+  weaponName: Freezing Sword
+  weaponDamage: 20
+  attackSpeed: 2
+  conditionType: 1
+  conditionChance: 20
+  conditionDuration: 5
+  cooldownIncrease: 0
+  freezeDuration: 2
+  poisonDamage: 0
+  accuracyReduction: 0
+  maxDurability: 0
+  currentDurability: 0

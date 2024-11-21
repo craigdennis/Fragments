@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 public class SceneService : MonoBehaviour
 {
     public static SceneService Instance { get; private set; }
+    public PlayerInventory PlayerInventory { get; private set; }
     
     private SceneTransitionData transitionData;
     public bool IsTransitionPending => transitionData != null;
@@ -14,10 +15,27 @@ public class SceneService : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
+            
+            // Get or create PlayerInventory
+            PlayerInventory = GetComponent<PlayerInventory>();
+            if (PlayerInventory == null)
+            {
+                PlayerInventory = gameObject.AddComponent<PlayerInventory>();
+                Debug.Log("Created new PlayerInventory component");
+            }
         }
         else
         {
+            Debug.Log("Destroying duplicate SceneService");
             Destroy(gameObject);
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (Instance == this)
+        {
+            Instance = null;
         }
     }
 

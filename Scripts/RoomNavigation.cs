@@ -38,8 +38,17 @@ public class RoomNavigation : MonoBehaviour
             return;
         }
 
-        var targetRoom = CurrentRoom.exits[exitIndex].valueRoom;
+        var selectedExit = CurrentRoom.exits[exitIndex];
         
+        // Check if this exit has an item to pick up
+        if (selectedExit.itemToPickup != null)
+        {
+            HandleExitItemPickup(selectedExit);
+            return;
+        }
+
+        // Normal room transition logic
+        var targetRoom = selectedExit.valueRoom;
         if (targetRoom == null)
         {
             Debug.LogError("Target room is null!");
@@ -59,6 +68,37 @@ public class RoomNavigation : MonoBehaviour
         else
         {
             SetRoom(targetRoom);
+        }
+    }
+
+    private void HandleExitItemPickup(Exit exit)
+    {
+        var playerInventory = SceneService.Instance?.PlayerInventory;
+        if (playerInventory == null)
+        {
+            Debug.LogError("PlayerInventory not found!");
+            return;
+        }
+
+        if (playerInventory.AddItem(exit.itemToPickup))
+        {
+            // Log the pickup
+            string pickupMessage = string.Format(
+                exit.pickupDescription,
+                exit.itemToPickup.itemName
+            );
+            GameEvents.RaiseLogMessage(pickupMessage);
+            
+            // Clear the item from the exit
+            exit.itemToPickup = null;
+            
+            // Refresh the room display
+            PrepareRoom();
+            GameEvents.RaiseRoomChanged(CurrentRoom);
+        }
+        else
+        {
+            GameEvents.RaiseLogMessage("Cannot pick up item - inventory is full!");
         }
     }
 
@@ -84,11 +124,18 @@ public class RoomNavigation : MonoBehaviour
         
         foreach (var exit in CurrentRoom.exits)
         {
-            // Guard against invalid exits
-            if (string.IsNullOrEmpty(exit.keyString) || exit.valueRoom == null) continue;
+            // Skip invalid exits
+            if (string.IsNullOrEmpty(exit.keyString) || 
+                (exit.valueRoom == null && exit.itemToPickup == null)) continue;
             
             exitDictionary[exit.keyString] = exit.valueRoom;
-            interactionDescriptions.Add(exit.exitDescription);
+            
+            // Use pickup text if there's an item, otherwise use normal exit description
+            string description = exit.itemToPickup != null ? 
+                exit.pickupButtonText : 
+                exit.exitDescription;
+                
+            interactionDescriptions.Add(description);
         }
     }
 
