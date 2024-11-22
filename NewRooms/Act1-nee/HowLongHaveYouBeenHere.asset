@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fc86985495674df489ee7bde785c85f, type: 3}
+  m_Name: HowLongHaveYouBeenHere
+  m_EditorClassIdentifier: 
+  description: The wild woman’s head tilts to the side, her tangled hair falling
+    over one shoulder. A crooked smile creeps onto her face, but there’s no warmth
+    in it. “Time,” she says, her voice low and sharp, “is a funny thing, isn’t it?
+    Here in this wagon, it stretches and folds, like a snake coiling on itself. How
+    long have I been here? Long enough to forget where the chains began and the road
+    ends.”
+  roomName: HowLongHaveYouBeenHere
+  exits: []
+  detailedDescription:
+    paragraphs:
+    - paragraphText: The wild woman’s head tilts to the side, her tangled hair falling
+        over one shoulder. A crooked smile creeps onto her face, but there’s no warmth
+        in it. “Time,” she says, her voice low and sharp, “is a funny thing, isn’t
+        it? Here in this wagon, it stretches and folds, like a snake coiling on itself.
+        How long have I been here? Long enough to forget where the chains began and
+        the road ends.”
+      nextButtonText: Her eyes shift toward the barred window.
+    - paragraphText: She pauses, her eyes narrowing as they dart toward the barred
+        window of the wagon. “Maybe it’s been days, maybe years. Does it even matter?
+        The wheels keep turning, the forest keeps watching, and the shadows… they’re
+        always waiting. That’s the only truth here.”
+      nextButtonText: Her gaze snaps back to you.
+    - paragraphText: “But if you’re asking how long I’ve been a prisoner—well, that
+        depends. You mean just the wagon, or all the years before it when I was free,
+        but not really? Because the chains started long before these iron ones.”
+      nextButtonText: 
+  hasCombat: 0
+  enemyType: 0

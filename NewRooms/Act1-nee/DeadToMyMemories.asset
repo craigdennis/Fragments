@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fc86985495674df489ee7bde785c85f, type: 3}
+  m_Name: DeadToMyMemories
+  m_EditorClassIdentifier: 
+  description: Her expression sharpens, her head tilting as she studies you with
+    an unsettling intensity. For a moment, she’s silent, her lips twitching as if
+    chewing over your words.
+  roomName: DeadToMyMemories
+  exits:
+  - keyString: WantMemoriesBack
+    exitDescription: Declare, "I want them back."
+    buttonChoiceText: I want them back
+    valueRoom: {fileID: 11400005, guid: abc1234567890fedcba1234567890abc, type: 2}
+  - keyString: LeavePastBuried
+    exitDescription: Resolve, "Let’s leave the past dead and buried."
+    buttonChoiceText: Let’s leave the past dead and buried
+    valueRoom: {fileID: 11400005, guid: def234567890fedcba1234567890def, type: 2}
+  detailedDescription:
+    paragraphs:
+    - paragraphText: Her expression sharpens, her head tilting as she studies you
+        with an unsettling intensity. For a moment, she’s silent, her lips twitching
+        as if chewing over your words.
+      nextButtonText: Her whisper cuts through the silence.
+    - paragraphText: “Deaf to your memories, hmm?” she whispers, her voice thick
+        with intrigue. “That’s worse than not hearing the whispers. Memories are
+        the thread that ties you to who you were… without them, you’re a puppet with
+        cut strings, dangling in the void.”
+      nextButtonText: She leans in, her tone turning conspiratorial.
+    - paragraphText: “But maybe that’s a gift,” she continues, her tone almost conspiratorial.
+        “Memories are traps, you know. They anchor you, weigh you down. Maybe you
+        were meant to start fresh. Clean. Free.”
+      nextButtonText: Her gaze shifts toward the ceiling, her voice lowering.
+    - paragraphText: “They must’ve taken them. The shadows don’t like loose ends.
+        If they left you empty, there’s a reason.” Her gaze snaps back to yours,
+        and a grin, sharp and almost triumphant, splits her face.
+      nextButtonText: Her grin widens as she poses her question.
+    - paragraphText: “Do you want them back, stranger? Or will you make something
+        new from the silence?”
+      nextButtonText: 
+  hasCombat: 0
+  enemyType: 0

@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fc86985495674df489ee7bde785c85f, type: 3}
+  m_Name: GettingYourMemoriesBack
+  m_EditorClassIdentifier: 
+  description: Her smile fades, replaced by a somber look that feels too lucid, too
+    knowing, for someone in her state. She leans back slightly, her eyes narrowing
+    as if weighing your words against some unseen truth.
+  roomName: GettingYourMemoriesBack
+  exits: []
+  detailedDescription:
+    paragraphs:
+    - paragraphText: Her smile fades, replaced by a somber look that feels too lucid,
+        too knowing, for someone in her state. She leans back slightly, her eyes
+        narrowing as if weighing your words against some unseen truth.
+      nextButtonText: Her voice drops to a low murmur.
+    - paragraphText: “Want them back, do you? Careful what you wish for. Memories
+        aren’t just stories—they’re shards of who you are. Some will glimmer, light
+        your way, and make you stronger than you know. But others…"
+      nextButtonText: She pauses, tracing jagged patterns in the air.
+    - paragraphText: “Others will cut you. Dark fragments, sharp and cruel, will cling
+        to you, twisting everything you think you know. Strength and poison—both
+        flow from the same well.”
+      nextButtonText: Her voice softens to a near whisper.
+    - paragraphText: “They don’t tell you how heavy they are, those pieces of the
+        past. You might find one… clutch it close… and wish you’d left it buried.”
+      nextButtonText: Her gaze burns with sudden intensity.
+    - paragraphText: “But you’re already walking the path, aren’t you? You’ll seek
+        the fragments, even the ones that stain your soul. Just remember this: memories
+        can’t be unmade. Once you take them back, they’re yours forever. The good…
+        and the bad.”
+      nextButtonText: 
+  hasCombat: 0
+  enemyType: 0

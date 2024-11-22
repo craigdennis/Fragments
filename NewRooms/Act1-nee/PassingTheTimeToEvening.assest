@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fc86985495674df489ee7bde785c85f, type: 3}
+  m_Name: PassingTheTimeToEvening
+  m_EditorClassIdentifier: 
+  description: The wagon creaks and groans as it lumbers over the uneven trail, the
+    rhythmic clatter of its wheels blending with the soft rustle of the forest outside.
+    The air inside is heavy, thick with the mingled scents of sweat, damp wood, and
+    rusted iron. Chains rattle softly with each jolt, a dissonant percussion to the
+    quiet murmurs of the prisoners.
+  roomName: PassingTheTimeToEvening
+  exits:
+  - keyString: WakeUp
+    exitDescription: Wake up as the wagon comes to a stop.
+    buttonChoiceText: Wake up
+    valueRoom: {fileID: 11400002, guid: ghi3456789012fedcba1234567890ghi, type: 2}
+  detailedDescription:
+    paragraphs:
+    - paragraphText: The wagon creaks and groans as it lumbers over the uneven trail,
+        the rhythmic clatter of its wheels blending with the soft rustle of the forest
+        outside. The air inside is heavy, thick with the mingled scents of sweat,
+        damp wood, and rusted iron. Chains rattle softly with each jolt, a dissonant
+        percussion to the quiet murmurs of the prisoners.
+      nextButtonText: Your gaze drifts toward the barred window.
+    - paragraphText: Fleeting glimpses of the dark forest blur together in an endless
+        haze of shadows and tangled branches. The world outside feels distant, almost
+        unreal, as if the wagon is carrying you further away from anything familiar,
+        deeper into the unknown.
+      nextButtonText: The wagon’s motion starts to weigh on you.
+    - paragraphText: Despite the ache in your muscles and the cold bite of the iron
+        shackles, the constant rocking of the wagon starts to lull you. Your head
+        grows heavy, and your thoughts begin to spiral inward. The faces of your
+        fellow prisoners—Rask’s booming laughter, the wild woman’s cryptic mutterings,
+        the old man’s knowing silence—fade into the background as your mind turns
+        to the deeper questions.
+      nextButtonText: The questions feel as endless as the journey.
+    - paragraphText: Why are you here? Who were you before this? The answers feel
+        just out of reach, like trying to grasp smoke in the dark. Fragments of memory
+        flicker at the edges of your mind—a flash of steel, a whispered voice, the
+        scent of spilled ale—but they refuse to take shape, leaving only a hollow
+        frustration.
+      nextButtonText: Your thoughts dissolve into the wagon’s rhythm.
+    - paragraphText: As your eyelids grow heavier, you realize that, despite everything
+        you’ve seen and heard, you’re no closer to understanding the truth. The past
+        is a locked door, and you don’t have the key. All you know is the motion
+        of the wagon, the steady march toward an unknown fate, and the weight of
+        your own questions pulling you into uneasy dreams.
+      nextButtonText: 
+  hasCombat: 0
+  enemyType: 0
