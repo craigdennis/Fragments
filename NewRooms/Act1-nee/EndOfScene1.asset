@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fc86985495674df489ee7bde785c85f, type: 3}
+  m_Name: EndOfScene1
+  m_EditorClassIdentifier: 
+  description: The wild woman’s words linger in your mind, curling around your thoughts
+    like smoke. They’ve left you unsettled—more so than you’d like to admit. As the
+    wagon rattles onward, you find yourself glancing toward the barred slats, drawn
+    to the forest beyond.
+  roomName: EndOfScene1
+  exits: []
+  detailedDescription:
+    paragraphs:
+    - paragraphText: The wild woman’s words linger in your mind, curling around your
+        thoughts like smoke. They’ve left you unsettled—more so than you’d like to
+        admit. As the wagon rattles onward, you find yourself glancing toward the
+        barred slats, drawn to the forest beyond.
+      nextButtonText: Your eyes settle on the darkened woods outside.
+    - paragraphText: The trees press close on either side of the trail, their trunks
+        thick and gnarled, twisted by time and weather. Moss clings to the bark in
+        dark, creeping patches, and the forest floor is choked with undergrowth and
+        scattered leaves. Sunlight struggles to pierce the dense canopy, casting
+        the woods in an oppressive gloom.
+      nextButtonText: Something catches your eye among the trees.
+    - paragraphText: You think you see movement between the trees—a brief flicker,
+        like a shadow slipping behind a trunk. You lean slightly, peering closer,
+        but it’s gone before you can focus on it. A trick of the light, perhaps,
+        or your mind playing games after the woman’s cryptic ramblings.
+      nextButtonText: The wagon’s sudden jolt draws your attention back.
+    - paragraphText: The frail man wheezes sharply, the sound breaking the uneasy
+        quiet. Across from you, the scarred man’s smirk lingers as he hums softly
+        to himself, his eyes half-lidded but strangely alert.
+      nextButtonText: The oppressive darkness outside seems to deepen.
+    - paragraphText: A crow caws from somewhere unseen, the sound cutting through
+        the grinding of the wagon wheels. You glance toward the guards perched atop
+        the wagon. One of them shifts, his hand brushing the hilt of his blade as
+        he surveys the treeline.
+      nextButtonText: 
+  hasCombat: 0
+  enemyType: 0

@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fc86985495674df489ee7bde785c85f, type: 3}
+  m_Name: LeaveThePastBuried
+  m_EditorClassIdentifier: 
+  description: The wild woman’s smile fades, and for the first time, her expression
+    turns serious, almost somber. She leans back, her eyes narrowing as though weighing
+    your words against something unseen.
+  roomName: LeaveThePastBuried
+  exits: []
+  detailedDescription:
+    paragraphs:
+    - paragraphText: The wild woman’s smile fades, and for the first time, her expression
+        turns serious, almost somber. She leans back, her eyes narrowing as though
+        weighing your words against something unseen.
+      nextButtonText: Her voice takes on a low, warning tone.
+    - paragraphText: “Careful with that kind of talk. The past doesn’t stay dead
+        just because you want it to. It waits, like a shadow, just out of reach.
+        And when it returns, it doesn’t ask for your permission.”
+      nextButtonText: She pulls her knees to her chest, her tone softening.
+    - paragraphText: “Some memories, yes, they’ll be good,” she continues, her tone
+        softening. “They’ll remind you who you were, give you strength when you think
+        you’ve got none left. They’ll make you fight.”
+      nextButtonText: Her gaze sharpens suddenly.
+    - paragraphText: “But others… others will rot you from the inside. They’ll twist
+        your heart, fill your mind with bile. They’ll whisper lies and truths so
+        close together you won’t know the difference. And once you remember them,
+        they’ll never let you go.”
+      nextButtonText: Her words drop to a near-whisper, heavy with foreboding.
+    - paragraphText: “You don’t get to choose which memories come back. They’ll come
+        when they’re ready. And when they do, you’d better hope you’re strong enough
+        to bear them.”
+      nextButtonText: She settles back into the shadows.
+    - paragraphText: “Leave the past buried if you want. But don’t be surprised if
+        it digs its way out.”
+      nextButtonText: 
+  hasCombat: 0
+  enemyType: 0
