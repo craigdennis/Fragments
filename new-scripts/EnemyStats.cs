@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class EnemyStats : Stats
+public class EnemyStats : BaseStats
 {
     public EnemyData enemyData;
 
@@ -11,7 +11,14 @@ public class EnemyStats : Stats
             maxHealth = enemyData.maxHealth;
             attackDamage = enemyData.attackDamage;
             attackCooldown = enemyData.attackCooldown;
-            accuracy = enemyData.accuracy; // Assign accuracy from EnemyData
+            accuracy = enemyData.accuracy;
+
+            defence = enemyData.defence;
+
+
+
+            
+            // Assign accuracy from EnemyData
             // Initialize other stats as needed
         }
         else
