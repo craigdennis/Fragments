@@ -16,13 +16,16 @@ public class BaseStats : MonoBehaviour
 
     public float luck;
 
-    public string equippedWeapon;
+    public WeaponData equippedWeapon;
+    public ArmorData equippedArmor;
  
 
     public virtual void Initialize()
     {
+        maxHealth += equippedArmor.healthBonus;
         currentHealth = maxHealth;
         cooldownTimer = 0f;
+        defence += equippedArmor.defence;
     }
 
     public virtual void TakeDamage(float damage)

@@ -7,6 +7,9 @@ public class CombatUIManager : MonoBehaviour
     public Text enemyHealthText;
     public Text combatMessageText; // Text element for displaying combat messages
 
+    public slider playeHealthSlider;
+    public slider enemyHealthSlider;
+
     // Reference to the CombatManager if needed
     public CombatManager combatManager;
 
@@ -15,6 +18,12 @@ public class CombatUIManager : MonoBehaviour
 
     void Start()
     {
+
+        if (playerHealthSlider == null || enemyHealthSlider == null)
+        {
+            Debug.LogError("Health Slider UI elements are not assigned in the inspector.");
+        }
+        
         // Ensure that the texts are initialized
         if (playerHealthText == null || enemyHealthText == null || combatMessageText == null)
         {

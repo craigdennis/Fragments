@@ -9,5 +9,9 @@ public class PlayerStats : Stats
 
         // For example, set the player's accuracy to a desired value
         accuracy = 0.9f; // 90% chance to hit
+
+        
+
+        
     }
 }
