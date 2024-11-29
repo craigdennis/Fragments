@@ -12,8 +12,12 @@ public class BaseStats : MonoBehaviour
     public float cooldownTimer = 0f;
 
     public float defence = 0f;
-
     public float accuracy = 1f; // Value between 0 and 1, representing a percentage chance to hit (1 = 100%)
+
+    public float luck;
+
+    public string equippedWeapon;
+ 
 
     public virtual void Initialize()
     {
@@ -23,7 +27,7 @@ public class BaseStats : MonoBehaviour
 
     public virtual void TakeDamage(float damage)
     {
-        currentHealth = damage - defence;
+        currentHealth -= damage;
         if (currentHealth < 0)
             currentHealth = 0;
     }

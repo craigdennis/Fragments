@@ -2,8 +2,95 @@ using UnityEngine;
 
 public class CombatManager : MonoBehaviour
 {
-    // Existing code...
+    // References to the Player and Enemy Stats
+    public PlayerStats playerStats;
 
+    // Reference to EnemyData ScriptableObject
+    public EnemyData enemyData;
+
+    // Reference to the UI Manager
+    public CombatUIManager uiManager;
+
+    // Internal EnemyStats instance
+    private EnemyStats enemyStats;
+
+    void Start()
+    {
+        // Initialize player stats
+        playerStats.Initialize();
+
+        // Initialize enemy stats using the EnemyData
+        InitializeEnemy();
+
+        // Update UI at the start
+        uiManager.UpdatePlayerHealth(playerStats.currentHealth, playerStats.maxHealth);
+        uiManager.UpdateEnemyHealth(enemyStats.currentHealth, enemyStats.maxHealth);
+    }
+
+    void InitializeEnemy()
+    {
+        // Create a new GameObject for the enemy
+        GameObject enemyObject = new GameObject("Enemy");
+        enemyStats = enemyObject.AddComponent<EnemyStats>();
+
+        // Assign the EnemyData to the EnemyStats
+        enemyStats.enemyData = enemyData;
+
+        // Initialize the EnemyStats
+        enemyStats.Initialize();
+    }
+
+    void Update()
+    {
+        // Update cooldown timers
+        if (playerStats.cooldownTimer > 0)
+            playerStats.cooldownTimer -= Time.deltaTime;
+
+        if (enemyStats.cooldownTimer > 0)
+            enemyStats.cooldownTimer -= Time.deltaTime;
+        else
+        {
+            EnemyAttack();
+            enemyStats.cooldownTimer = enemyStats.attackCooldown; // Reset enemy cooldown
+        }
+
+        // Check for end of combat
+        if (playerStats.IsDead())
+        {
+            Debug.Log("Player has been defeated!");
+            uiManager.ShowMessage("You have been defeated!");
+            // Implement defeat logic (e.g., disable input, show game over screen)
+        }
+
+        if (enemyStats.IsDead())
+        {
+            Debug.Log("Enemy has been defeated!");
+            uiManager.ShowMessage("Enemy has been defeated!");
+            // Implement victory logic (e.g., loot drops, experience gain)
+        }
+    }
+
+
+
+    private float CalculateDamage(Character attacker, Character defender, Weapon weapon)
+    {
+        float damage = weapon.baseDamage;
+        damage += attacker.attackDamage;
+
+        if (Random.value <= weapon.criticalChance)
+        {
+            damage *= weapon.criticalMultiplier;
+        }
+
+        damage -= defender.defense;
+        return Mathf.Max(0, damage);
+    }
+
+
+    
+
+
+    // Call this method when the player presses the attack button
     public void PlayerAttack()
     {
         if (playerStats.cooldownTimer <= 0f)
@@ -12,7 +99,14 @@ public class CombatManager : MonoBehaviour
             if (IsAttackSuccessful(playerStats.accuracy))
             {
                 // Attack hits
-                enemyStats.TakeDamage(playerStats.attackDamage);
+
+                WeaponData weapon = playerStats.weapon;
+                if (weapon != null) {
+                    Debug.LogWarning("No weapon equipped!");
+                    return;
+                    }
+                float damage = CalculateDamage(playerStats, enemyStats, weapon);
+                enemyStats.TakeDamage(damage);
                 uiManager.UpdateEnemyHealth(enemyStats.currentHealth, enemyStats.maxHealth);
                 Debug.Log("Player attacked the enemy and hit!");
 
@@ -20,6 +114,7 @@ public class CombatManager : MonoBehaviour
                 if (enemyStats.IsDead())
                 {
                     Debug.Log("Enemy has been defeated!");
+                    uiManager.ShowMessage("Enemy has been defeated!");
                     // Implement victory logic
                 }
             }
@@ -55,6 +150,7 @@ public class CombatManager : MonoBehaviour
                 if (playerStats.IsDead())
                 {
                     Debug.Log("Player has been defeated!");
+                    uiManager.ShowMessage("You have been defeated!");
                     // Implement defeat logic
                 }
             }
@@ -76,5 +172,9 @@ public class CombatManager : MonoBehaviour
         return randomValue <= accuracy;
     }
 
-    // Rest of the code...
+    // Optional: Method to get player's cooldown percentage for UI display
+    public float GetPlayerCooldownPercent()
+    {
+        return Mathf.Clamp01(playerStats.cooldownTimer / playerStats.attackCooldown);
+    }
 }
