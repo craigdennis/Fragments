@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70d1ee7b2157e4924838556a09f56721, type: 3}
+  m_Name: StartingRoom
+  m_EditorClassIdentifier: 
+  storySegments:
+  - text: The interior of the wagon is dim and cramped, its wooden walls stained
+      with damp and streaked with grime. Chains hang loosely from the floor, connecting
+      to the ankles of the half-dozen prisoners around you. The air is heavy with
+      the sour scent of unwashed bodies and the metallic tang of rusted iron.
+    continueButtonText: Your gaze drifts to the others in the wagon
+  - text: "To your left, a woman with wild, unkempt hair is muttering to herself.
+      Her eyes dart from one corner of the wagon to another, her lips moving in a
+      hurried whisper you can\u2019t make out. "
+    continueButtonText: You notice another prisoner sitting across from you.
+  - text: 'Across from you, an older man sits quietly, his back pressed against the
+      wagon wall. His gray beard is neatly trimmed despite his ragged appearance,
+      and his sunken eyes gleam with a sharp intelligence. '
+    continueButtonText: At the far end, you spot someone else who catches your attention
+  - text: Finally, at the far end of the wagon, a large, muscular figure leans heavily
+      against the bars. His wrists are shackled like the rest, but his movements
+      are slow and deliberate, each shift of his body making the chains clink ominously.
+      A jagged scar runs from his temple to his jawline, and a faint, cynical smirk
+      curls his lips as he watches the others with cold detachment.
+    continueButtonText: 
+  choices:
+  - buttonText: Talk to old man
+    resultText: 
+    nextNode: {fileID: 11400000, guid: 8d2b5793965c74b7f9d17b00cc8bd145, type: 2}
+    decisionKey: 
+    requiredDecisions: []
+  - buttonText: Talk to Wild Woman
+    resultText: 
+    nextNode: {fileID: 11400000, guid: e0d4c978eb50048dea0f4cd8b46f5dc3, type: 2}
+    decisionKey: 
+    requiredDecisions: []
+  - buttonText: Talk to Muscular Man
+    resultText: 
+    nextNode: {fileID: 11400000, guid: 14ce4a8f6098f4772a5a3eedd08649ad, type: 2}
+    decisionKey: 
+    requiredDecisions: []
