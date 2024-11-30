@@ -64,6 +64,12 @@ public class TextManager : MonoBehaviour
             {
                 foreach (var choice in currentNode.choices)
                 {
+                    if (!currentNode.IsChoiceAvailable(choice))
+                    {
+                        Debug.Log($"Choice '{choice.buttonText}' is not available due to missing decisions.");
+                        continue;
+                    }
+
                     GameObject buttonObj = Instantiate(choiceButtonPrefab, choiceButtonContainer);
                     currentButtons.Add(buttonObj);
 
@@ -77,6 +83,16 @@ public class TextManager : MonoBehaviour
                     button.onClick.AddListener(() => {
                         Destroy(buttonObj);
                         currentButtons.Remove(buttonObj);
+                        
+                        if (!string.IsNullOrEmpty(choice.decisionKey))
+                        {
+                            Debug.Log($"About to record decision from choice: {choice.decisionKey}");
+                            currentNode.RecordDecision(choice.decisionKey);
+                        }
+                        else
+                        {
+                            Debug.Log($"No decision key for choice: {choice.buttonText}");
+                        }
                         
                         if (!string.IsNullOrEmpty(choice.resultText))
                         {
@@ -184,4 +200,11 @@ public class TextManager : MonoBehaviour
     {
         textComponent.text = newText;
     }
+
+#if UNITY_EDITOR || UNITY_INCLUDE_TESTS
+    // Test helper methods
+    public StoryNode GetCurrentNode() => currentNode;
+    public int GetCurrentSegmentIndex() => currentSegmentIndex;
+    public List<GameObject> GetCurrentButtons() => currentButtons;
+#endif
 }

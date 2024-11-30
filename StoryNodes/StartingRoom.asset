@@ -35,10 +35,16 @@ MonoBehaviour:
   choices:
   - buttonText: Talk to old man
     resultText: 
-    nextNode: {fileID: 11400000, guid: 9a13567674e8d44e0871942bd74f6e92, type: 2}
+    nextNode: {fileID: 11400000, guid: 8d2b5793965c74b7f9d17b00cc8bd145, type: 2}
+    decisionKey: 
+    requiredDecisions: []
   - buttonText: Talk to Wild Woman
     resultText: 
-    nextNode: {fileID: 11400000, guid: cc2e997f89be546f28d46ef32513245f, type: 2}
+    nextNode: {fileID: 11400000, guid: e0d4c978eb50048dea0f4cd8b46f5dc3, type: 2}
+    decisionKey: 
+    requiredDecisions: []
   - buttonText: Talk to Muscular Man
     resultText: 
-    nextNode: {fileID: 11400000, guid: 2510b5eef75394a0f8a02086c1f35ba6, type: 2}
+    nextNode: {fileID: 11400000, guid: 14ce4a8f6098f4772a5a3eedd08649ad, type: 2}
+    decisionKey: 
+    requiredDecisions: []

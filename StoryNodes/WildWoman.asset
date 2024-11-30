@@ -16,6 +16,14 @@ MonoBehaviour:
   - text: i am a wild woman
     continueButtonText: 
   choices:
-  - buttonText: go back
+  - buttonText: I didn't mean to leave him
     resultText: 
-    nextNode: {fileID: 11400000, guid: 149784ed4ae3745f1978a7409ff77d56, type: 2}
+    nextNode: {fileID: 11400000, guid: f15228c4f4dd54e3c9c0240b69329cc4, type: 2}
+    decisionKey: 
+    requiredDecisions:
+    - leftOldMan
+  - buttonText: I'm leaving
+    resultText: 
+    nextNode: {fileID: 11400000, guid: f15228c4f4dd54e3c9c0240b69329cc4, type: 2}
+    decisionKey: 
+    requiredDecisions: []

@@ -34,6 +34,8 @@ MonoBehaviour:
       set of chains to rattle. And you? You don\u2019t even have that much, do you?
       No name. No past. Just questions."
     nextNode: {fileID: 0}
+    decisionKey: 
+    requiredDecisions: []
   - buttonText: Where are we going?
     resultText: "Where are we going? Somewhere dark, somewhere deep. Some say the
       mines, where the earth swallows men whole. Others whisper of pits where the
@@ -41,6 +43,8 @@ MonoBehaviour:
       are no longer needed. Does it matter, though? Whether it\u2019s the mines,
       the gallows, or some forgotten grave, it\u2019s all the same in the end."
     nextNode: {fileID: 0}
+    decisionKey: 
+    requiredDecisions: []
   - buttonText: "Why don\u2019t I remember anything?"
     resultText: "Why don\u2019t you remember? That\u2019s the trick, isn\u2019t it?
       Could be they hit you over the head before dragging you here. Could be they
@@ -49,6 +53,10 @@ MonoBehaviour:
       of what we\u2019ve done is heavier than any chain. But don\u2019t ask me for
       the truth\u2014I\u2019m not the keeper of your past"
     nextNode: {fileID: 0}
+    decisionKey: 
+    requiredDecisions: []
   - buttonText: Leave the Old Man
     resultText: Test
-    nextNode: {fileID: 11400000, guid: cc2e997f89be546f28d46ef32513245f, type: 2}
+    nextNode: {fileID: 11400000, guid: e0d4c978eb50048dea0f4cd8b46f5dc3, type: 2}
+    decisionKey: leftOldMan
+    requiredDecisions: []
