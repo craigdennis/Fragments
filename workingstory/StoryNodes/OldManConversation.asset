@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70d1ee7b2157e4924838556a09f56721, type: 3}
+  m_Name: OldManConversation
+  m_EditorClassIdentifier: 
+  storySegments:
+  - text: 'As the wagon lurches again, you take a deep breath, trying to steady your
+      thoughts. You need answers. The old man sitting across from you watches quietly,
+      his sharp eyes flickering with a knowing light. For a moment, he smirks, almost
+      imperceptibly, before leaning his head back against the bars.
+
+
+
+
+'
+    continueButtonText: The old man breaks the silence.
+  - text: "\u201CYou don\u2019t remember, do you?\u201D he says softly, his voice
+      barely louder than the rattling chains. \u201CI can see it in your eyes.\u201D\n\n\n"
+    continueButtonText: 
+  choices:
+  - buttonText: Who are you?
+    resultText: "Who am I? Just another shadow among many, caught in the turning
+      wheel of this cruel machine. They call me Krelis\u2014or they did, back when
+      names mattered. Now, I\u2019m nothing more than another body to work, another
+      set of chains to rattle. And you? You don\u2019t even have that much, do you?
+      No name. No past. Just questions."
+    nextNode: {fileID: 0}
+    decisionKey: 
+    requiredDecisions: []
+  - buttonText: Where are we going?
+    resultText: "Where are we going? Somewhere dark, somewhere deep. Some say the
+      mines, where the earth swallows men whole. Others whisper of pits where the
+      lucky are put to work, and the rest\u2026 well, let\u2019s just say their chains
+      are no longer needed. Does it matter, though? Whether it\u2019s the mines,
+      the gallows, or some forgotten grave, it\u2019s all the same in the end."
+    nextNode: {fileID: 0}
+    decisionKey: 
+    requiredDecisions: []
+  - buttonText: "Why don\u2019t I remember anything?"
+    resultText: "Why don\u2019t you remember? That\u2019s the trick, isn\u2019t it?
+      Could be they hit you over the head before dragging you here. Could be they
+      dosed you with something foul\u2014makes it easier to break a soul if you don\u2019t
+      know who you are. Or maybe\u2026 maybe you chose to forget. Sometimes the weight
+      of what we\u2019ve done is heavier than any chain. But don\u2019t ask me for
+      the truth\u2014I\u2019m not the keeper of your past"
+    nextNode: {fileID: 0}
+    decisionKey: 
+    requiredDecisions: []
+  - buttonText: Leave the Old Man
+    resultText: Test
+    nextNode: {fileID: 11400000, guid: e0d4c978eb50048dea0f4cd8b46f5dc3, type: 2}
+    decisionKey: leftOldMan
+    requiredDecisions: []
