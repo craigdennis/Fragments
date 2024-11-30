@@ -9,6 +9,7 @@ public class EnemyData : ScriptableObject
     public float attackCooldown = 2f;
     public float accuracy = 0.8f; //Default accuracy is 80%
     // Add other enemy-specific stats as needed
+    public float expReward = 10f;
 
 
     

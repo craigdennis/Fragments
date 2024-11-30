@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class CombatManager : MonoBehaviour
 {
@@ -6,7 +7,7 @@ public class CombatManager : MonoBehaviour
     public PlayerStats playerStats;
 
     // Reference to EnemyData ScriptableObject
-    public EnemyData enemyData;
+    private List<Enemy> enemies = New List<Enemy>();
 
     // Reference to the UI Manager
     public CombatUIManager uiManager;
