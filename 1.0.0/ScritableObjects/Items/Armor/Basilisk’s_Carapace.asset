@@ -1,0 +1,28 @@
+'%TAG !u!': 'tag:unity3d.com,2011:'
+'%YAML 1.1': null
+'--- !u!114 &11400000':
+  MonoBehaviour:
+    armorName: "Basilisk\u2019s Carapace"
+    baseArmor: 530
+    defence: 215
+    healthBonus: 430
+    m_CorrespondingSourceObject:
+      fileID: 0
+    m_EditorClassIdentifier: null
+    m_EditorHideFlags: 0
+    m_Enabled: 1
+    m_GameObject:
+      fileID: 0
+    m_Name: "Basilisk\u2019s Carapace"
+    m_ObjectHideFlags: 0
+    m_PrefabAsset:
+      fileID: 0
+    m_PrefabInstance:
+      fileID: 0
+    m_Script:
+      fileID: 11500000
+      guid: 8cc6733787a064cb3af5e41b75e5cfb4
+      type: 3
+    purchasePrice: 16500
+    requiredLevel: Epic
+    sellValue: 8250

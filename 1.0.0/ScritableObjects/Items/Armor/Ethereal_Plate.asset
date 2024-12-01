@@ -1,0 +1,28 @@
+'%TAG !u!': 'tag:unity3d.com,2011:'
+'%YAML 1.1': null
+'--- !u!114 &11400000':
+  MonoBehaviour:
+    armorName: Ethereal Plate
+    baseArmor: 120
+    defence: 50
+    healthBonus: 100
+    m_CorrespondingSourceObject:
+      fileID: 0
+    m_EditorClassIdentifier: null
+    m_EditorHideFlags: 0
+    m_Enabled: 1
+    m_GameObject:
+      fileID: 0
+    m_Name: Ethereal Plate
+    m_ObjectHideFlags: 0
+    m_PrefabAsset:
+      fileID: 0
+    m_PrefabInstance:
+      fileID: 0
+    m_Script:
+      fileID: 11500000
+      guid: 8cc6733787a064cb3af5e41b75e5cfb4
+      type: 3
+    purchasePrice: 1500
+    requiredLevel: 9
+    sellValue: 750

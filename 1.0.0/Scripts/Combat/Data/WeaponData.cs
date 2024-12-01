@@ -12,6 +12,8 @@ public class WeaponData : ScriptableObject
     public float criticalChance;
     public float criticalMultiplier;
 
+  public float requiredLevel;
+
     // Special Effects
     // public StatusEffect statusEffect;
     // public float effectChance;
